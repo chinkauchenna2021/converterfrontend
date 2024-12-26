@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import type { AuthOptions, NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import AzureADProvider from "next-auth/providers/azure-ad";
 
 const authOptions: NextAuthOptions = {
     providers: [
