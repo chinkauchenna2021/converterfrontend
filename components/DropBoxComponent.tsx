@@ -1,10 +1,10 @@
 'use client'
 import React , {useState , useEffect} from 'react'
 import Image from "next/image";
+import axios from 'axios';
 
 function DropBoxComponent() {
     useEffect(() => {
-        // Load the Dropbox Chooser SDK
         const script = document.createElement('script');
         script.src = 'https://www.dropbox.com/static/api/2/dropins.js';
         script.id = 'dropboxjs';
@@ -26,17 +26,18 @@ function DropBoxComponent() {
           success: (files: any[]) => {
             console.log('Selected files:', files);
             files.forEach(file => {
-              fetch(file.link)
-                .then(response =>  response.blob())
-                .then((blob:Blob) => {
-                  // Implement file conversion or further processing here
-                  (async()=>{
-                   const file =  await blob.arrayBuffer();
-                   const buffer = Buffer.from(file)
-                   console.log(buffer)
-                  })()
-                })
-                .catch(error => console.error('Error fetching file:', error));
+              axios({
+                url: file.link, 
+                method: 'GET',
+                responseType: 'arraybuffer', 
+              })
+              .then((response:any) => {
+                const arrayBuffer = response.data; 
+                const buffer = Buffer.from(arrayBuffer);
+                console.log(buffer); 
+      
+              })
+                .catch((error:any) => console.error('Error fetching file:', error));
             });
           },
           linkType: 'direct',
@@ -46,8 +47,7 @@ function DropBoxComponent() {
       };
     
     
-    
-    
+  
   return (
     <span onClick={handleDropboxChoose} className="w-full rounded-sm px-2 flex h-14 items-center space-x-5 cursor-pointer hover:bg-slate-100">
     <Image alt="dropbox" src={'./dropbox.svg'}  height={30} width={30}    />
