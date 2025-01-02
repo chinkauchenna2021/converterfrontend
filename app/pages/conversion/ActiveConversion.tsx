@@ -669,6 +669,8 @@ function ActiveConversion() {
   if(singleFileIsSuccess!){
     console.log(singleFileConversionData , singleFileIsError , " file response")
   }
+
+
   const convertAllDocments = async () => {
     setResponseData([]);
     try {
@@ -720,19 +722,37 @@ function ActiveConversion() {
   }
 
   const downloadSingleFile = async (id: string) => {
-    const mime = conversionData?.responseDocument?.filter(
-      (data: IDocumentResponse) => data.conversionIndex === id
-    ) as IDocumentResponse[];
-    const mimeType = fileMimeTypes[mime[0]?.toFormat] ?? "text/plain";
-    try {
-      console.log(id, mime, `id from file conversion `);
-      const blobData = convertBufferToBlob(
-        mime[0].fileContent.data as unknown as Buffer,
-        mimeType
-      );
-      downloadFile(blobData, mime[0]?.fileName as string);
-    } catch (error: any) {
-      console.log(error?.message, `error message`);
+    if(isSuccess){
+      const mime = conversionData?.responseDocument?.filter(
+        (data: IDocumentResponse) => data.conversionIndex === id
+      ) as IDocumentResponse[];
+      const mimeType = fileMimeTypes[mime[0]?.toFormat] ?? "text/plain";
+      try {
+        console.log(id, mime, `id from file conversion `);
+        const blobData = convertBufferToBlob(
+          mime[0].fileContent.data as unknown as Buffer,
+          mimeType
+        );
+        downloadFile(blobData, mime[0]?.fileName as string);
+      } catch (error: any) {
+        console.log(error?.message, `error message`);
+      }
+
+    }else if (singleFileIsSuccess){
+      const mime = singleFileConversionData?.responseDocument?.filter(
+        (data: IDocumentResponse) => data.conversionIndex === id
+      ) as IDocumentResponse[];
+      const mimeType = fileMimeTypes[mime[0]?.toFormat] ?? "text/plain";
+      try {
+        console.log(id, mime, `id from file conversion `);
+        const blobData = convertBufferToBlob(
+          mime[0].fileContent.data as unknown as Buffer,
+          mimeType
+        );
+        downloadFile(blobData, mime[0]?.fileName as string);
+      } catch (error: any) {
+        console.log(error?.message, `error message`);
+      }
     }
   };
 
