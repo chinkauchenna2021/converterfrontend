@@ -41,7 +41,7 @@ import {
   IDocumentResponse,
   IFileConversionResponse,
 } from "@/types/Conversion";
-import { ExternalSourceButton } from ".";
+import { ExternalSourceButton } from "./page";
 import ClipLoader from "react-spinners/ClipLoader";
 import {
   Modal,
@@ -443,7 +443,7 @@ function CustomPopover({
   );
 }
 
-function CustomEmptyPopover({
+export function CustomEmptyPopover({
   children,
   triggerButton,
 }: {
@@ -801,7 +801,7 @@ function ActiveConversion() {
             <Button
               onClick={convertAllDocments}
               variant="flat"
-              className="tracking-wide text-sm rounded-sm w-full font-semibold text-white  bg-orange-500 mt-4  "
+              className="tracking-wide text-sm rounded-sm w-full font-semibold text-white  bg-purple-800 mt-4  "
             >
               {isPending ? (
                 <ClipLoader

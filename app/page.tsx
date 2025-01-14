@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import Conversion from "./pages/conversion";
+import Conversion from "./pages/conversion/page";
 import ActiveConversion from "./pages/conversion/ActiveConversion";
 import { useFilesStore } from "./infrastructure/zustand/useFilesStore";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
